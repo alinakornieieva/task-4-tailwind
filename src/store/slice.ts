@@ -66,6 +66,7 @@ const initialState = {
       dates: "",
     },
   ],
+  openForm: false,
 };
 
 const slice = createSlice({
@@ -75,9 +76,19 @@ const slice = createSlice({
     deleteNote: (state, action: PayloadAction<number>) => {
       state.notes = state.notes.filter((item) => item.id !== action.payload);
     },
+    toggleForm: (state) => {
+      state.openForm = !state.openForm;
+    },
+    // activeNotes: (state): Number => {
+    //   return state.notes.filter((item) => !item.archived).length;
+    // },
   },
 });
 
 const { reducer, actions } = slice;
 export default reducer;
-export const { deleteNote } = actions;
+export const {
+  deleteNote,
+  toggleForm,
+  // activeNotes
+} = actions;
