@@ -1,6 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { INote } from "../models/INote";
 
-const initialState = {
+type initialStateType = {
+  notes: INote[];
+  openForm: Boolean;
+  active: INote[];
+  edit: Boolean;
+};
+
+const initialState: initialStateType = {
   notes: [
     {
       id: 1,
@@ -9,7 +17,7 @@ const initialState = {
       created: "July 20, 2023",
       category: "Task",
       content: "It`s a content for task 1",
-      dates: "27/07/2023",
+      dates: ["27/07/2023"],
     },
     {
       id: 24,
@@ -18,7 +26,7 @@ const initialState = {
       created: "July 24, 2023",
       category: "Task",
       content: "Important!!!",
-      dates: "",
+      dates: [],
     },
     {
       id: 2,
@@ -27,7 +35,7 @@ const initialState = {
       created: "July 25, 2023",
       category: "Idea",
       content: "It`s a content for idea 1",
-      dates: "",
+      dates: [],
     },
     {
       id: 10,
@@ -36,7 +44,7 @@ const initialState = {
       created: "July 27, 2023",
       category: "Idea",
       content: "It`s a content for idea",
-      dates: "27/07/2023, 30/07/2023",
+      dates: ["27/07/2023, 30/07/2023"],
     },
     {
       id: 11,
@@ -45,7 +53,7 @@ const initialState = {
       created: "July 27, 2023",
       category: "Random Thought",
       content: "Write a message to Ann and offer to go to the cafe",
-      dates: "",
+      dates: [],
     },
     {
       id: 1166,
@@ -54,7 +62,7 @@ const initialState = {
       created: "July 27, 2023",
       category: "Idea",
       content: "Don`t forget earphones",
-      dates: "",
+      dates: [],
     },
     {
       id: 2087,
@@ -63,32 +71,40 @@ const initialState = {
       created: "July 27, 2023",
       category: "Random Thought",
       content: "Find tutor or just start with Duolingo",
-      dates: "",
+      dates: [],
     },
   ],
   openForm: false,
+  active: [],
+  edit: false,
 };
 
 const slice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    deleteNote: (state, action: PayloadAction<number>) => {
+    addNote: (state: initialStateType, action: PayloadAction<INote>) => {
+      state.notes = [...state.notes, action.payload];
+    },
+    deleteNote: (state: initialStateType, action: PayloadAction<number>) => {
       state.notes = state.notes.filter((item) => item.id !== action.payload);
     },
-    toggleForm: (state) => {
+    archiveNote: (state, action: PayloadAction<number>) => {
+      state.notes = state.notes.map((item) => {
+        if (item.id === action.payload) {
+          item.archived = !item.archived;
+        }
+        return item;
+      });
+    },
+    editNote: (state, action: PayloadAction<number>) => {},
+    toggleForm: (state: initialStateType) => {
       state.openForm = !state.openForm;
     },
-    // activeNotes: (state): Number => {
-    //   return state.notes.filter((item) => !item.archived).length;
-    // },
   },
 });
 
 const { reducer, actions } = slice;
 export default reducer;
-export const {
-  deleteNote,
-  toggleForm,
-  // activeNotes
-} = actions;
+export const { addNote, deleteNote, archiveNote, editNote, toggleForm } =
+  actions;
