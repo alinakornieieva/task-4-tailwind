@@ -3,9 +3,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import "./Form.css";
 import { addNote, changeEdit, updateNote, toggleForm } from "../../store/slice";
 import { INote } from "../../models/INote";
+import "./Form.css";
 
 export const FormComp = () => {
   const dispatch = useAppDispatch();

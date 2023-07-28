@@ -4,6 +4,7 @@ import { INote } from "../models/INote";
 
 type initialStateType = {
   notes: INote[];
+  allCategories: string[];
   openForm: Boolean;
   active: INote[];
   edit: Boolean;
@@ -76,6 +77,7 @@ const initialState: initialStateType = {
       dates: [],
     },
   ],
+  allCategories: ["Task", "Random Thought", "Idea"],
   openForm: false,
   active: [],
   edit: false,
