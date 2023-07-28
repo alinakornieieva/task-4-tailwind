@@ -1,18 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import "./Form.css";
-import { addNote, toggleForm } from "../../store/slice";
+import { addNote, changeEdit, updateNote, toggleForm } from "../../store/slice";
 import { INote } from "../../models/INote";
 
 export const FormComp = () => {
   const dispatch = useAppDispatch();
-  const { openForm, edit } = useAppSelector((state) => state.notes);
+  const { openForm, edit, editElement } = useAppSelector(
+    (state) => state.notes
+  );
   const [note, setNote] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(" ");
   const [category, setCategory] = useState("Task");
+  useEffect(() => {
+    if (editElement) {
+      setNote(editElement.note);
+      setContent(editElement.content);
+      setCategory(editElement.category);
+    }
+  }, [openForm]);
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -39,12 +48,12 @@ export const FormComp = () => {
       const month = months[date.getMonth()];
       const created = `${month} ${date.getDate()}, ${date.getFullYear()}`;
       if (edit) {
-        //  updateNote(edit, name.value, content.value, dates, category.value);
+        dispatch(updateNote({ note, content, category, dates }));
       } else {
         const newNote: INote = {
           id: Date.now(),
           archived: false,
-          name: note,
+          note,
           created,
           content,
           category,
@@ -58,6 +67,8 @@ export const FormComp = () => {
       setCategory("Task");
     } catch (e: any) {
       alert(e.messsage);
+    } finally {
+      dispatch(changeEdit());
     }
   };
   return (
@@ -90,8 +101,8 @@ export const FormComp = () => {
           label="Category"
         >
           <Form.Select
-            value={category}
             onChange={(e) => setCategory(e.target.value)}
+            value={category}
           >
             <option value="Task">Task</option>
             <option value="Random Thought">Random Thought</option>

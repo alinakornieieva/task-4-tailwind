@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { INote } from "../../models/INote";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { archiveNote, deleteNote } from "../../store/slice";
+import {
+  archiveNote,
+  deleteNote,
+  editNote,
+  toggleForm,
+} from "../../store/slice";
 import Table from "react-bootstrap/Table";
 
 export const TableComp = () => {
@@ -17,8 +22,8 @@ export const TableComp = () => {
           <th>Category</th>
           <th>Content</th>
           <th>Dates</th>
-          <th>
-            <i className="bi bi-folder2-open"></i>
+          <th className="text-center">
+            <i className="bi bi-folder2-open me-2"></i>
             <i className="bi bi-trash"></i>
           </th>
         </tr>
@@ -26,7 +31,7 @@ export const TableComp = () => {
       <tbody>
         {notes.map((item: INote) => (
           <tr key={item.id}>
-            <td>{item.name}</td>
+            <td>{item.note}</td>
             <td>{item.created}</td>
             <td>{item.category}</td>
             <td>{item.content}</td>
@@ -35,11 +40,17 @@ export const TableComp = () => {
                 <div key={i}>{data}</div>
               ))}
             </td>
-            <td>
-              <i className="bi bi-pencil"></i>
+            <td className="text-center">
+              <i
+                onClick={() => {
+                  dispatch(editNote(item.id));
+                  dispatch(toggleForm());
+                }}
+                className="bi bi-pencil me-2"
+              ></i>
               <i
                 onClick={() => dispatch(archiveNote(item.id))}
-                className="bi bi-folder2-open"
+                className="bi bi-folder2-open me-2"
               ></i>
               <i
                 onClick={() => dispatch(deleteNote(item.id))}

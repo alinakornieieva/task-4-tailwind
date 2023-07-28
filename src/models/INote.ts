@@ -1,9 +1,9 @@
 export interface INote {
   id: number;
   archived: Boolean;
-  name: String;
-  created: String;
-  category: String;
-  content: String;
-  dates: String[];
+  note: string;
+  created: string;
+  category: string;
+  content: string;
+  dates: string[];
 }

@@ -24,7 +24,7 @@ export const ArchivedPage = () => {
       <tbody>
         {notes.map((item: INote) => (
           <tr key={item.id}>
-            <td>{item.name}</td>
+            <td>{item.note}</td>
             <td>{item.created}</td>
             <td>{item.category}</td>
             <td>{item.content}</td>
