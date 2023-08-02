@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addNote, changeEdit, updateNote, toggleForm } from "../../store/slice";
 import { INote } from "../../models/INote";
-import "./Form.css";
 
 export const FormComp = () => {
   const dispatch = useAppDispatch();
@@ -73,46 +69,44 @@ export const FormComp = () => {
   };
   return (
     <div className={`form-component ${openForm && "show"}`}>
-      <Form onSubmit={onFormSubmit}>
-        <Form.Control
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          type="text"
-          placeholder="Enter a note..."
-        />
-        <FloatingLabel
-          className="my-3"
-          controlId="floatingTextarea2"
-          label="Content"
-        >
-          <Form.Control
-            as="textarea"
+      <form
+        onSubmit={onFormSubmit}
+        className="p-5 border rounded border-3 border-solid border-sky-500"
+      >
+        <div>
+          <input
+            className="px-3 py-1 rounded"
+            type="text"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Enter a note..."
+          />
+        </div>
+        <div>
+          <textarea
+            className="my-3 p-1 rounded"
             value={content}
             onChange={(e) => {
               setContent(e.target.value);
             }}
             placeholder="Leave a description here"
-            style={{ height: "100px" }}
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          className="mb-3"
-          controlId="floatingSelect"
-          label="Category"
-        >
-          <Form.Select
+            rows={5}
+            cols={50}
+          ></textarea>
+        </div>
+        <div>
+          <select
+            className="px-3 py-1 rounded"
             onChange={(e) => setCategory(e.target.value)}
             value={category}
           >
             <option value="Task">Task</option>
             <option value="Random Thought">Random Thought</option>
             <option value="Idea">Idea</option>
-          </Form.Select>
-        </FloatingLabel>
-        <Button type="submit" variant="primary">
-          Add
-        </Button>
-      </Form>
+          </select>
+        </div>
+        <button className="btn mt-3">Add</button>
+      </form>
     </div>
   );
 };

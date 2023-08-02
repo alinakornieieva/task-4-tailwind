@@ -10,10 +10,7 @@ export const ActivePage = () => {
     <>
       <FormComp />
       <NotesList />
-      <button
-        onClick={() => dispatch(toggleForm())}
-        className="my-5 btn bg-sky-500 text-white"
-      >
+      <button onClick={() => dispatch(toggleForm())} className="my-5 btn">
         Add note
       </button>
       <SummaryTable />
