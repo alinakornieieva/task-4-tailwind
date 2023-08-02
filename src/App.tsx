@@ -3,7 +3,6 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ActivePage } from "./pages/ActivePage/ActivePage";
 import { ArchivedPage } from "./pages/ArchivedPage/ArchivedPage";
-import "./App.css";
 
 const App = () => {
   return (
