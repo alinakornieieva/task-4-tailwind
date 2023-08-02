@@ -7,7 +7,6 @@ import {
   toggleForm,
 } from "../../store/slice";
 import { defineIcon } from "../defineIcon";
-import Table from "react-bootstrap/Table";
 
 type Props = {
   name: string;
@@ -23,23 +22,25 @@ export const TableComp = ({ name, notes }: Props) => {
     "Dates",
   ];
   const iconsActiveHead = name === "active" && (
-    <th className="text-center">
+    <th className="py-2 border border-slate-300 text-center">
       <i className="bi bi-folder2-open me-2"></i>
       <i className="bi bi-trash"></i>
     </th>
   );
   const iconsArchivedHead = name === "archived" && (
-    <th className="text-center">
+    <th className="py-2 border border-slate-300 text-center">
       <i className="bi bi-folder2-open"></i>
     </th>
   );
   const dispatch = useAppDispatch();
   return (
-    <Table bordered>
+    <table className="w-full table-auto border-separate border border-slate-400">
       <thead>
         <tr>
           {tableCateg.map((categ) => (
-            <th key={categ}>{categ}</th>
+            <th className="py-2 border border-slate-300" key={categ}>
+              {categ}
+            </th>
           ))}
           {iconsActiveHead}
           {iconsArchivedHead}
@@ -48,18 +49,18 @@ export const TableComp = ({ name, notes }: Props) => {
       <tbody>
         {notes.map((item: INote) => (
           <tr key={item.id}>
-            <td>
+            <td className="p-1 border border-slate-300">
               <i className={`bi ${defineIcon(item.category)}`}></i> {item.note}
             </td>
-            <td>{item.created}</td>
-            <td>{item.category}</td>
-            <td>{item.content}</td>
-            <td>
+            <td className="p-1 border border-slate-300">{item.created}</td>
+            <td className="p-1 border border-slate-300">{item.category}</td>
+            <td className="p-1 border border-slate-300">{item.content}</td>
+            <td className="p-1 border border-slate-300">
               {item.dates?.map((data, i) => (
                 <div key={i}>{data}</div>
               ))}
             </td>
-            <td className="text-center">
+            <td className="p-1 border border-slate-300 text-center">
               {name === "active" && (
                 <i
                   onClick={() => {
@@ -83,6 +84,6 @@ export const TableComp = ({ name, notes }: Props) => {
           </tr>
         ))}
       </tbody>
-    </Table>
+    </table>
   );
 };

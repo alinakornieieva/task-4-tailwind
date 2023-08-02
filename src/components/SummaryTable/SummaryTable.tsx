@@ -1,7 +1,6 @@
 import { useAppSelector } from "../../store/hooks";
 import { defineIcon } from "../defineIcon";
 import { ICategory } from "../../models/ICategory";
-import Table from "react-bootstrap/Table";
 
 export const SummaryTable = () => {
   const { notes, allCategories } = useAppSelector((state) => state.notes);
@@ -14,25 +13,29 @@ export const SummaryTable = () => {
     });
   });
   return (
-    <Table bordered>
+    <table className="w-full table-fixed border-separate border border-slate-400">
       <thead>
         <tr>
-          <th>Note Category</th>
-          <th>Active</th>
-          <th>Archived</th>
+          <th className="py-2 border border-slate-300">Note Category</th>
+          <th className="py-2 border border-slate-300">Active</th>
+          <th className="py-2 border border-slate-300">Archived</th>
         </tr>
       </thead>
       <tbody>
         {categories.map((item: ICategory, i: number) => (
           <tr key={i}>
-            <td>
+            <td className="p-1 border border-slate-300">
               <i className={`bi ${defineIcon(item.item)}`}></i> {item.item}
             </td>
-            <td>{item.active}</td>
-            <td>{item.archived}</td>
+            <td className="p-1 border border-slate-300 text-center">
+              {item.active}
+            </td>
+            <td className="p-1 border border-slate-300 text-center">
+              {item.archived}
+            </td>
           </tr>
         ))}
       </tbody>
-    </Table>
+    </table>
   );
 };
