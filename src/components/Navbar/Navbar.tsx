@@ -1,11 +1,14 @@
 import { NavLink } from "react-router-dom";
-import "./Navbar.css";
 
 export const Navbar = () => {
   return (
-    <nav>
-      <NavLink to="/">Active</NavLink>
-      <NavLink to="/archived">Archived</NavLink>
+    <nav className="bg-sky-500 p-5">
+      <NavLink className="link me-3" to="/">
+        Active
+      </NavLink>
+      <NavLink className="link" to="/archived">
+        Archived
+      </NavLink>
     </nav>
   );
 };

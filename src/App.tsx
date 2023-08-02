@@ -8,7 +8,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <div className="container my-5">
+      <div className="container mx-auto my-5">
         <Routes>
           <Route path="/" Component={ActivePage} />
           <Route path="/:archived" Component={ArchivedPage} />
